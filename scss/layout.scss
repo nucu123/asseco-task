@@ -1,0 +1,28 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: BPGDejaVuSans;
+}
+
+body{
+  background-color: $gray-one;
+
+  .app-wrapper {
+    width: 100%;
+    display: flex;
+    padding-left: calc(#{$nav-bar-width} + 30px );
+    padding-top: 75px;
+    padding-right: 30px;
+    justify-content: center;
+    background-color: $gray-one;
+    margin-bottom: 30px;
+  }
+}
+
+
+
+
+

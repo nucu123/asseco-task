@@ -1,0 +1,124 @@
+
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+  -webkit-box-shadow:$top $left $blur $color #{$inset};
+  -moz-box-shadow:$top $left $blur $color #{$inset};
+  box-shadow:$top $left $blur $color #{$inset};
+}
+
+@mixin transformbox($left, $right){
+  -webkit-transform: translate($left, $right);
+  -moz-transform: translate($left, $right);
+  -ms-transform: translate($left, $right);
+  -o-transform: translate($left, $right);
+  transform: translate($left, $right);
+}
+@mixin translate_center($left, $right){
+  top:$left;
+ 
+  left:$right;
+  -webkit-transform : translate(-50%, -50%);
+  -moz-transform    : translate(-50%, -50%);
+  -ms-transform     : translate(-50%, -50%);
+  -o-transform      : translate(-50%, -50%);
+  transform         : translate(-50%, -50%);
+}
+@mixin csstransition($sec, $transition){
+  -webkit-transition: all $sec $transition;
+  -moz-transition: all $sec $transition;
+  -o-transition: all $sec $transition;
+  -ms-transition: all $sec $transition;
+  transition: all $sec $transition;
+}
+
+@mixin fade-in($duration, $ease){
+  opacity:0;  /* make things invisible upon start */
+  -webkit-animation:fadeIn $ease 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:fadeIn $ease 1;
+  animation:fadeIn $ease 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:$duration;
+  -moz-animation-duration:$duration;
+  animation-duration:$duration;
+}
+
+@mixin line-width($duration, $ease){
+  width:20px;
+  margin-left: -10px;
+
+  -webkit-animation:lineWidth $ease 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:lineWidth $ease 1;
+  animation:lineWidth $ease 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:$duration;
+  -moz-animation-duration:$duration;
+  animation-duration:$duration;
+}
+@mixin textstyle(){
+  color: $light-black;
+  font-size: 16px;
+  font-family: "Helvetica Neue Greek Light", serif;
+  strong {
+    font-family: "Helvetica Neue Greek Bold", serif;
+    font-weight: normal;
+  }
+  a{
+    font-family: "Helvetica Neue Greek", serif
+  }
+  p{
+    margin-bottom: 0px;
+  }
+}
+
+// =============================================================================
+// String Replace
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+          eot: "?",
+          svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+          otf: "opentype",
+          ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}

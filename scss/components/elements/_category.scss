@@ -1,0 +1,39 @@
+.category{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  &.invoice{
+    background-color: #7986cb;
+    background-image: url("../resources/icons/invoice.png");
+  }
+  &.buy{
+    background-color: #66c3c3;
+    background-image: url("../resources/icons/buy.png");
+  }
+  &.bonus{
+    background-color: #e3b16c;
+    background-image: url("../resources/icons/bonus.png");
+  }
+  &.inventar{
+    background-color: #d97575;
+    background-image: url("../resources/icons/inventar.png");
+  }
+  &.application{
+    background-color: #7986cb;
+    background-image: url("../resources/icons/application.png");
+  }
+  &.refresh{
+    background-color: #75bad9;
+    background-image: url("../resources/icons/refresh.png");
+  }
+  &.location{
+    background-color: #88ad5c;
+    background-image: url("../resources/icons/location.png");
+  }
+
+}
